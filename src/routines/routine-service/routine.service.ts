@@ -9,12 +9,12 @@ export class RoutineService {
     private routinesCollection: CollectionReference<RoutineDocument>,
   ) {}
 
-  async create({ name }): Promise<RoutineDocument> {
-    console.log(name);
-    const docRef = this.routinesCollection.doc('name');
+  async create(body: { name: string }): Promise<RoutineDocument> {
+    console.log(body.name);
+    const docRef = this.routinesCollection.doc(body.name);
     // const dueDateMillis = dayjs(dueDate).valueOf();
     await docRef.set({
-      name,
+      name: body.name,
     });
     const todoDoc = await docRef.get();
     const todo = todoDoc.data();
